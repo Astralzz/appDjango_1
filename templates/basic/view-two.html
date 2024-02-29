@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vista numero 2</title>
+  </head>
+  <body style="justify-content: center; align-items: center; padding: 5%; background-color: beige;">
+    {% comment %}#SECTION - Mensaje de datos del usuario{% endcomment %}
+
+    <h1>Vista no 2 - Dinamica</h1>
+    <p>Esta es la vista basica numero 2 de la app con datos dinamicos traidos desde context</p>
+    <br /><br />
+    {% comment %}Resivimos los valores{% endcomment %}
+    <h2>
+      Mi nombre es {{ name }} y tengo {{ edad }} años y soy{% comment %}? Mayor o igual a 18 y menor a 121{% endcomment %}
+      {% if edad >= 18 and edad <= 121 %}
+        <span style="color:green">mayor de edad</span>
+        {% comment %}? Mayor o igual a 1 y menor a 18{% endcomment %}
+      {% elif edad >= 1 and edad < 18 %}
+        <span style="color:red">menor de edad</span>
+      {% else %}
+        <span style="color:yellow">una persona con una edad erronea</span>
+      {% endif %}
+    </h2>
+
+    <h3>Lista pasada directamente</h3>
+
+    <p>{{ list }}</p>
+
+    <br />
+    {% comment %}#SECTION - Lista de categorias concatenadas{% endcomment %}
+    <h3>Lista de algo</h3>
+
+    <ul>
+      {# Recorremos #}
+      {% for data in list %}
+        <li>{{ data }}</li>
+      {% endfor %}
+    </ul>
+
+    <br />
+
+    {# Asignamos filtro de longitud #}
+    <span style="color: blueviolet;">Total de categorias {{ list|length }}</span>
+  </body>
+</html>

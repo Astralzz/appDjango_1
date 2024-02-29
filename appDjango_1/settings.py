@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See #LINK -  https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$c84@4ru^bv%rkcgg7h7vrm8i96p53f6vdtcu##$by)!#*6^(n'
+SECRET_KEY = "django-insecure-$c84@4ru^bv%rkcgg7h7vrm8i96p53f6vdtcu##$by)!#*6^(n"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,12 +42,12 @@ estarán usando para el proyecto
 """
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
 """
@@ -115,34 +115,45 @@ middleware se ejecuta en secuencia, de arriba hacia abajo, en cada solicitud.
 """
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'appDjango_1.urls'
+ROOT_URLCONF = "appDjango_1.urls"
+
+
+"""
+:templates: application
+
+Agregar o modificar la configuración de las plantillas (`TEMPLATES`) en `settings.py` 
+de la siguiente manera:
+
+"""
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            "templates"
+        ],  # Rutas a directorios donde se buscan plantillas (opcional)
+        "APP_DIRS": True,  # Habilita la búsqueda de plantillas dentro de las aplicaciones instaladas
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],  # Lista de procesadores de contexto (opcional)
         },
     },
 ]
 
-WSGI_APPLICATION = 'appDjango_1.wsgi.application'
+WSGI_APPLICATION = "appDjango_1.wsgi.application"
 
 """
 :database - Configuración de la base de datos 
@@ -152,18 +163,17 @@ WSGI_APPLICATION = 'appDjango_1.wsgi.application'
 """
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-    
-    #NOTE - ORACLE
-    #LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
+    # NOTE - ORACLE
+    # LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
     #     'default': {
     #     'ENGINE': 'django.db.backends.oracle',
     #     'NAME': 'xe',
     #     'USER': 'system',
-    #     'PASSWORD': 'oracle',        
+    #     'PASSWORD': 'oracle',
     #     'HOST':'127.0.0.1',
     #     'PORT':'1521'
     # }
@@ -175,16 +185,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -192,9 +202,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # #LINK -  https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -204,9 +214,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # #LINK -  https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # #LINK -  https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

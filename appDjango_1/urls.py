@@ -25,10 +25,22 @@ from appDjango_1 import views
 
 - Rutas por defecto de la app
 
-:type list
+:type list pats
+
+    path = ({url}, {function}, {name})
+
+    admin = vista del formulario para acceder
+    dataOne = vista de dato normal 
+    dataTwo = vista de datos enviando parámetros en las urls
 
 """
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('dataOne/', views.dataOne, name='data-one'),
+    path("admin/", admin.site.urls),
+    # Retornar HttpResponse básico
+    path("basic/data/", views.dataOne, name="basic-data"),
+    path("basic/user/<str:name>/<int:edad>", views.dataUser, name="basic-user"),
+    # Retornar views
+    path("views/basic/one", views.basicViewOne, name="views-basic-one"),
+    path("views/basic/two/<str:name>/<int:edad>", views.basicViewTwo, name="views-basic-two"),
+    
 ]
