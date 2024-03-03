@@ -1,6 +1,26 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+
+# SECTION - INDEX
+
+"""
+
+:basicViewOne - url index
+
+:param request:Any
+
+:render - render({request}, {template/vista}, {content/datos})
+
+:return render view
+
+"""
+
+
+def index(request):
+    return render(request, "index.html", {})
+
+
 # SECTION - BASIC
 
 """
@@ -96,3 +116,55 @@ def basicViewTwo(request, name, edad):
     context = {"name": name, "edad": edad, "list": lista}
 
     return render(request, "basic/view-two.html", context)
+
+
+# SECTION - RENDERS LAYOUTS BASIC
+"""
+
+:pageOneLayout - url numero 5 - vista layout no 1
+
+:param request:Any
+
+:render - render({request}, {template/vista}, {content/datos})
+
+:return render view
+
+"""
+
+
+def pageOneLayout(request):
+    return render(request, "layout/page-one.html", {})
+
+
+"""
+
+:pageTwoLayout - url numero 6 - vista layout no 2
+
+:param request:Any
+
+:render - render({request}, {template/vista}, {content/datos})
+
+:return render view
+
+"""
+
+
+def pageTwoLayout(request):
+    return render(request, "layout/page-two.html", {})
+
+
+"""
+
+:pageThreeLayout - url numero 7 - vista layout no 3
+
+:param request:Any
+
+:render - render({request}, {template/vista}, {content/datos})
+
+:return render view
+
+"""
+
+
+def pageThreeLayout(request):
+    return render(request, "layout/page-three.html", {})

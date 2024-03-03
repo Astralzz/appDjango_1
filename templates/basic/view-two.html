@@ -1,13 +1,21 @@
+{% comment %}Plantilla con elementos estaticos{% endcomment %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    {% comment %}Icono de static/*{% endcomment %}
+    <link rel="icon" type="image/jpg" href="{% static 'assets/imgs/icon.jpg' %}" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% comment %} Estilos {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
     <title>Vista numero 2</title>
   </head>
-  <body style="justify-content: center; align-items: center; padding: 5%; background-color: beige;">
+  <body class="view-two">
     {% comment %}#SECTION - Mensaje de datos del usuario{% endcomment %}
-
     <h1>Vista no 2 - Dinamica</h1>
     <p>Esta es la vista basica numero 2 de la app con datos dinamicos traidos desde context</p>
     <br /><br />

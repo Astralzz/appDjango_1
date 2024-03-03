@@ -39,6 +39,8 @@ estarán usando para el proyecto
 :session - Controlar las sesiones
 :messages - Controlar los mensajes
 :staticfiles - Controlar la carga de archivos estáticos
+
+:applicationTwo - Sub aplicacion no 2
 """
 
 INSTALLED_APPS = [
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "applicationTwo"
 ]
 
 """
@@ -211,10 +214,13 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Archivos estáticos (CSS, JavaScript, Images)
 # #LINK -  https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+# Ruta de los archivos estáticos (CSS, JavaScript, Images, etc)
+STATICFILES_DIRS = [BASE_DIR / "static", "var/www/static"]
 
 # Default primary key field type
 # #LINK -  https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
