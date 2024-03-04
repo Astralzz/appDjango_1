@@ -55,4 +55,8 @@ urlpatterns = [
     path("layout/three", views.pageThreeLayout, name="layouts-page-three"),
     # Rutas de aplicationTwo
     path("page/coments", include("applicationTwo.urls")),
+    # Rutas de posts
+    path("page/posts", include("posts.urls")),
+    # Rutas de school
+    path("page/school", include("school.urls")),
 ]

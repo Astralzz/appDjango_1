@@ -10,35 +10,51 @@
 
 ## Comandos para el proyecto
 
-Crear nueva app o proyecto
+### Crear nueva app o proyecto
 
     django-admin startproject name_application
+
+## Comando de proyecto (Manage)
 
 - Los comandos se ejecutan a nivel de manage.py
 - **_python manage.py_** es la contante y se usa en todos los comandos
 
-Migrar los datos a la BD
+### Migrar los datos a la BD
 
     python manage.py migrate
 
-Actualizar los modelos del proyecto
+## Actualizar los modelos del proyecto
 
     python manage.py makemigrations
 
-Ejecutar el servidor de Django
+### Ejecutar el servidor de Django
 
     python manage.py runserver
 
-Verificar problemas en nuestro proyecto
+### Verificar problemas en nuestro proyecto
 
     python manage.py check
 
-Crear nueva sub aplicacion
+### Crear nueva sub aplicacion
 
     python manage.py startapp name_sub_application
 
-Verificar si una sub aplicacion esta correctamente creada
+### Verificar si una sub aplicacion correctamente creada
 
     python manage.py check applicationTwo
+
+### Agregar n datos aleatorios
+
+- necesita librería [django_seed](https://pypi.org/project/django-seed/)
+
+        pip install django-seed
+
+- necesita librería [psycopg2-binary](https://pypi.org/project/psycopg2-binary/)
+
+        pip install psycopg2-binary
+
+Comando:
+
+    python manage.py seed name_app --number=n
 
 ---

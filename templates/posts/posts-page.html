@@ -1,0 +1,50 @@
+{% extends 'layout/base.html' %}
+{% comment %}Heredamos layout{% endcomment %}
+
+{% comment %}Titulo heredado{% endcomment %}
+{% block title_app %}
+  Posts
+{% endblock %}
+
+{% comment %}Contenido{% endcomment %}
+{% block main_app %}
+  <div class="container">
+    <div class="col-8">
+      <div class="d-grid gap-2">
+        <span class="text-dark">Hola soy el autor {{ autor_id.name }} y mi email es {{ autor_id.email }}</span>
+      </div>
+
+      <br />
+
+      {% comment %}Tabla{% endcomment %}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-borderless table-primary align-middle">
+          <thead class="table-light">
+            <caption>
+              Autores <span>{{ autors|length }}</span>
+            </caption>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Telefono</th>
+              <th>Descripcion</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            {% for autor in autors %}
+              <tr class="table-primary">
+                <td scope="row">{{ autor.id }}</td>
+                <td>{{ autor.name }}</td>
+                <td>{{ autor.email }}</td>
+                <td>{{ autor.phone }}</td>
+                <td>{{ autor.description }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

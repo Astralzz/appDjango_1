@@ -39,8 +39,10 @@ estarán usando para el proyecto
 :session - Controlar las sesiones
 :messages - Controlar los mensajes
 :staticfiles - Controlar la carga de archivos estáticos
+:django_seed - Semillas y fabricas - #LINK - https://pypi.org/project/django-seed/
 
 :applicationTwo - Sub aplicacion no 2
+:pots - Sub aplicacion no 3
 """
 
 INSTALLED_APPS = [
@@ -50,7 +52,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "applicationTwo"
+    "django_seed",
+    "applicationTwo",
+    "posts",
+    "school",
 ]
 
 """
@@ -166,9 +171,21 @@ WSGI_APPLICATION = "appDjango_1.wsgi.application"
 """
 
 DATABASES = {
+    # NOTE - SQLITE . LOCAL
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
+    # NOTE - MYSQL
+    # LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
+    # LINK - Installation - https://pypi.org/project/mysqlclient
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_bd_1",
+        "USER": "root",
+        "PASSWORD": "",
+        "HOST": "localhost",
+        "PORT": "3307",
     }
     # NOTE - ORACLE
     # LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
