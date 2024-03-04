@@ -172,21 +172,21 @@ WSGI_APPLICATION = "appDjango_1.wsgi.application"
 
 DATABASES = {
     # NOTE - SQLITE . LOCAL
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
     # NOTE - MYSQL
     # LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
     # LINK - Installation - https://pypi.org/project/mysqlclient
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "django_bd_1",
-        "USER": "root",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "3307",
-    }
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "django_bd_1",
+    #     "USER": "root",
+    #     "PASSWORD": "",
+    #     "HOST": "localhost",
+    #     "PORT": "3307",
+    # }
     # NOTE - ORACLE
     # LINK - https://www.oracle.com/news/connect/build-web-applications-python-django.html
     #     'default': {

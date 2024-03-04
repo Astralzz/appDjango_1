@@ -1,0 +1,50 @@
+<div class="row mt-3">
+  <div class="col">
+    {% comment %}Alerta para mostrar errores{% endcomment %}
+    {% if messages %}
+      <div class="alert alert-danger" role="alert">{{ messages }}</div>
+    {% endif %}
+
+    {% comment %}Formulario{% endcomment %}
+    <form action="{% url 'create-teacher' %}" method="post">
+      {% comment %}Token de seguridad{% endcomment %}
+      {% csrf_token %}
+
+      {% comment %}! Email{% endcomment %}
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required />
+      </div>
+      {% comment %}! Nombre{% endcomment %}
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Jose C.." required />
+      </div>
+      {% comment %}! Categoria{% endcomment %}
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <select name="category" id="categoria" class="form-select" required aria-label="Categoria de maestro">
+          <option value="" selected>Selecciona una categoria</option>
+          {% comment %}Recooremos{% endcomment %}
+          {% for teacherCategory in teacherCategorys %}
+            <option value="{{ teacherCategory.id }}">{{ teacherCategory.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% comment %}! Telefono{% endcomment %}
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Telefono</label>
+        <input type="text" name="phone" class="form-control" id="telefono" placeholder="7471..." required />
+      </div>
+      {% comment %}Descripcion{% endcomment %}
+      <div class="mb-3">
+        <label for="dirección" class="form-label">Dirección</label>
+        <textarea class="form-control" name="direction" id="dirección" rows="3"></textarea>
+      </div>
+      {% comment %}Boton{% endcomment %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Crear maestro</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -15,4 +15,5 @@ from . import views
 """
 urlpatterns = [
     path("public", views.schoolContent, name="page-school-public"),
+    path("public/create", views.createTeacherFormHtml, name="create-teacher"),
 ]

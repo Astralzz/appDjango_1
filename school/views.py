@@ -1,5 +1,8 @@
 import random
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.contrib import messages
+from django.db import transaction
 from .models import TeacherCategory, Subject, Teacher, TeacherDetail
 
 """
@@ -30,34 +33,77 @@ def getRandomTeacherCategory():
 """
 
 
-def createTeacher(request):
-    # Data
-    nameTeacher = "Karla Lisbeth Cortez Marquez"
-    keyTeacher = "48655268"
+def createTeacherFormHtml(request):
+    # ? Es POST
+    if request.method == "POST":
+        try:
+            # Capturar datos del formulario
+            email = request.POST.get("email")
+            name = request.POST.get("name")
+            category_id = request.POST.get("category")
+            phone = request.POST.get("phone")
+            direction = request.POST.get("direction")
 
-    # Verificamos si ya existe
-    existing_teacher = Teacher.objects.filter(name=nameTeacher, key=keyTeacher).exists()
+            # Validar datos del formulario
+            if not email or not name or not category_id or not phone or not direction:
+                messages.error(request, "Por favor, complete todos los campos.")
+                return HttpResponse("Por favor, complete todos los campos.")
 
-    # ? Existe
-    if existing_teacher:
-        return
+            # Obtener la categoría de maestro correspondiente
+            category = TeacherCategory.objects.get(id=category_id)
 
-    # Creamos maestro
-    teacher = Teacher(
-        category=getRandomTeacherCategory(),
-        name=nameTeacher,
-        key=keyTeacher,
-    )
-    teacher.save()
+            # Verificar si el email ya está registrado
+            if TeacherDetail.objects.filter(email=email).exists():
+                messages.error(request, "El email ya se encuentra registrado.")
+                return HttpResponse("El email ya se encuentra registrado.")
 
-    # Creamos detalles del maestro
-    teacherDetail = TeacherDetail(
-        teacher=teacher,
-        email="karlaList12@gmail.com",
-        phone="7478525666",
-        direction="Calle principal, no 23, Mexico City",
-    )
-    teacherDetail.save()
+            # Creamos en transition para poner los 2 si o si
+            with transaction.atomic():
+                # Generamos key
+                key = getKeyTeacherUnique()
+
+                # Creamos maestro
+                teacher = Teacher.objects.create(category=category, name=name, key=key)
+
+                # Creamos detalles
+                TeacherDetail.objects.create(
+                    teacher=teacher,
+                    email=email,
+                    phone=phone,
+                    direction=direction,
+                )
+
+            # Mensaje de éxito y redirection a la misma página
+            messages.success(request, "¡Maestro creado con éxito!")
+            return HttpResponse("Se creo el maestro correctamente")
+
+        # ! Error
+        except Exception as e:
+            # Manejo de errores generales
+            messages.error(request, f"Ocurrió un error: {str(e)}")
+            return HttpResponse(f"Ocurrió un error: {str(e)}")
+
+    # No es una solicitud POST
+    messages.error(request, "Solo se admite solicitud POST")
+    return HttpResponse("Solo se admite solicitud POST")
+
+
+"""
+
+:getKeyTeacherUnique - Generar key única
+
+:return key:number
+
+"""
+
+
+def getKeyTeacherUnique():
+    # Generar una clave única de 8 dígitos
+    key = "".join(random.choices("0123456789", k=8))
+    # Recorremos asta que sea única
+    while Teacher.objects.filter(key=key).exists():
+        key = "".join(random.choices("0123456789", k=8))
+    return key
 
 
 """
@@ -121,7 +167,7 @@ def addRemoveSubjectInTeacher(n, type="add"):
 
 def schoolContent(request):
     # Creamos
-    createTeacher(request)
+    # createTeacherFormHtml(request)
 
     # Creamos relaciones m:m
     addRemoveSubjectInTeacher(random.randint(5, 10))
@@ -130,6 +176,13 @@ def schoolContent(request):
     teachers = Teacher.objects.all().order_by("key")
 
     # Lista de maestros de id=1 categoría ordenada por key
-    teachers = getRandomTeacherCategory().teachers.all().order_by("key")
+    # teachers = getRandomTeacherCategory().teachers.all().order_by("key")
 
-    return render(request, "school/school-page.html", {"teachers": teachers})
+    # Lista de categorías de maestros
+    teacherCategorys = TeacherCategory.objects.all().order_by("name")
+
+    return render(
+        request,
+        "school/school-page.html",
+        {"teachers": teachers, "teacherCategorys": teacherCategorys},
+    )
