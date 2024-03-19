@@ -1,0 +1,29 @@
+<div class="row mt-3">
+  <div class="col">
+    {% comment %}Titulo{% endcomment %}
+    <h3 class="h3 text-dark">Formulario de Django</h3>
+
+    {% comment %}? Existe error{% endcomment %}
+    {% if error_message %}
+      <div class="alert alert-danger">
+        <strong>Error,</strong> {{ error_message }}
+      </div>
+      {% comment %}? Existe exito{% endcomment %}
+    {% elif success_message %}
+      <div class="alert alert-success">
+        <strong>Éxito,</strong> {{ success_message }}
+      </div>
+    {% endif %}
+
+    {% comment %}Formulario{% endcomment %}
+    <form action="{% url 'create-teacher' %}" method="post">
+      {% comment %}Token de seguridad{% endcomment %}
+      {% csrf_token %}
+      {{ teacher_form }}
+      {% comment %}Boton{% endcomment %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Crear maestro</button>
+      </div>
+    </form>
+  </div>
+</div>

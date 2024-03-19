@@ -23,6 +23,7 @@
               </caption>
               <tr>
                 <th>Id</th>
+                <th>Email</th>
                 <th>Nombre</th>
                 <th>Clave</th>
                 <th>Categoria</th>
@@ -33,6 +34,7 @@
               {% for teacher in teachers %}
                 <tr class="table-primary">
                   <td scope="row">{{ teacher.id }}</td>
+                  <td>{{ teacher.detail.email }}</td>
                   <td>{{ teacher.name }}</td>
                   <td>{{ teacher.key }}</td>
                   <td>{{ teacher.category.name }}</td>
@@ -40,7 +42,7 @@
                     {% comment %}Lista de materias{% endcomment %}
                     <ul class="list">
                       {% for subject in teacher.subjects.all %}
-                        <li class="item">{{ subject }}</li>
+                        <li class="item">{{ "s" }}</li>
                       {% endfor %}
                     </ul>
                   </td>
@@ -55,7 +57,10 @@
       {% comment %}#SECTION - Formularios{% endcomment %}
       <div class="col-lg-4">
         {% comment %}Maestros{% endcomment %}
-        {% include 'forms/school/teacher-form.html' %}
+        {% comment %} {% include 'forms/school/teacher-form.html' %} {% endcomment %}
+
+        {% include 'forms/school/teacher-form-py.html' %}
+
       </div>
     </div>
   </div>

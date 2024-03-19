@@ -1,0 +1,30 @@
+<div class="row mt-3">
+    <div class="col">
+      {% comment %}Titulo{% endcomment %}
+      <h3 class="h3 text-dark">Registrar empleado</h3>
+  
+      {% comment %}? Existe error{% endcomment %}
+      {% if error_message %}
+        <div class="alert alert-danger">
+          <strong>Error,</strong> {{ error_message }}
+        </div>
+        {% comment %}? Existe exito{% endcomment %}
+      {% elif success_message %}
+        <div class="alert alert-success">
+          <strong>Éxito,</strong> {{ success_message }}
+        </div>
+      {% endif %}
+  
+      {% comment %}Formulario{% endcomment %}
+      <form action="{% url 'create-employee' %}" method="post">
+        {% comment %}Token de seguridad{% endcomment %}
+        {% csrf_token %}
+        {{ form }}
+        {% comment %}Boton{% endcomment %}
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

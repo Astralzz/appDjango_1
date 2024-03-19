@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "applicationTwo",
     "posts",
     "school",
+    "employees"
 ]
 
 """

@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+{% comment %}Heredamos layout{% endcomment %}
+
+{% comment %}Titulo heredado{% endcomment %}
+{% block title_app %}
+  Employees
+{% endblock %}
+
+{% block main_app %}
+  <div class="container mb-4">
+    <div class="row">
+      {% comment %}#SECTION - Formularios{% endcomment %}
+      <div class="col-lg-4">
+        {% include 'forms/employees/employee-form.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

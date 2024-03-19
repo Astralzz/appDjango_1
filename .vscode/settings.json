@@ -17,6 +17,7 @@
         "runserver",
         "SQLITE",
         "startapp",
-        "startproject"
+        "startproject",
+        "uagro"
     ]
 }

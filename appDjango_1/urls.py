@@ -59,4 +59,6 @@ urlpatterns = [
     path("page/posts", include("posts.urls")),
     # Rutas de school
     path("page/school", include("school.urls")),
+    # Rutas de employees
+    path("page/employees", include("employees.urls")),
 ]

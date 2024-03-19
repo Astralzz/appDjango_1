@@ -3,7 +3,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from django.db import transaction
+
+from .forms import TeacherForm
 from .models import TeacherCategory, Subject, Teacher, TeacherDetail
+
+
+def getAllTeachers(orderBy="name"):
+    # Lista de maestros ordenada por key
+    return Teacher.objects.all().order_by(orderBy)
+
+
+def getAllTeacherCategorys(orderBy="name"):
+    # Lista de categorías de maestros
+    return TeacherCategory.objects.all().order_by(orderBy)
+
 
 """
 
@@ -37,51 +50,83 @@ def createTeacherFormHtml(request):
     # ? Es POST
     if request.method == "POST":
         try:
-            # Capturar datos del formulario
-            email = request.POST.get("email")
-            name = request.POST.get("name")
-            category_id = request.POST.get("category")
-            phone = request.POST.get("phone")
-            direction = request.POST.get("direction")
+            # Validamos formulario
+            form = TeacherForm(request.POST)
 
-            # Validar datos del formulario
-            if not email or not name or not category_id or not phone or not direction:
-                messages.error(request, "Por favor, complete todos los campos.")
-                return HttpResponse("Por favor, complete todos los campos.")
+            # ? Datos válidos
+            if form.is_valid():
+                # Capturar datos del formulario
+                email = request.POST.get("email")
+                name = request.POST.get("name")
+                category_id = request.POST.get("category")
+                phone = request.POST.get("phone")
+                direction = request.POST.get("direction")
 
-            # Obtener la categoría de maestro correspondiente
-            category = TeacherCategory.objects.get(id=category_id)
+                # ? Un campo no esta en el formulario
+                if (
+                    not email
+                    or not name
+                    or not category_id
+                    or not phone
+                    or not direction
+                ):
+                    # ! ERROR
+                    raise ValueError("Todos los campos son requeridos")
 
-            # Verificar si el email ya está registrado
-            if TeacherDetail.objects.filter(email=email).exists():
-                messages.error(request, "El email ya se encuentra registrado.")
-                return HttpResponse("El email ya se encuentra registrado.")
+                # Obtener la categoría de maestro correspondiente
+                category = TeacherCategory.objects.get(id=category_id)
 
-            # Creamos en transition para poner los 2 si o si
-            with transaction.atomic():
-                # Generamos key
-                key = getKeyTeacherUnique()
+                # ? Verificar si el email ya está registrado
+                if TeacherDetail.objects.filter(email=email).exists():
+                    # ! ERROR DE EMAIL
+                    raise ValueError("el email " + email + " ya está registrado")
 
-                # Creamos maestro
-                teacher = Teacher.objects.create(category=category, name=name, key=key)
+                # Creamos en transition para poner los 2 si o si
+                with transaction.atomic():
+                    # Generamos key
+                    key = getKeyTeacherUnique()
 
-                # Creamos detalles
-                TeacherDetail.objects.create(
-                    teacher=teacher,
-                    email=email,
-                    phone=phone,
-                    direction=direction,
+                    # Creamos maestro
+                    teacher = Teacher.objects.create(
+                        category=category, name=name, key=key
+                    )
+
+                    # Creamos detalles
+                    TeacherDetail.objects.create(
+                        teacher=teacher,
+                        email=email,
+                        phone=phone,
+                        direction=direction,
+                    )
+
+                # * ÉXITO
+                return render(
+                    request,
+                    "school/school-page.html",
+                    {
+                        "teachers": getAllTeachers(),
+                        "teacher_form": TeacherForm(),
+                        "teacherCategorys": getAllTeacherCategorys(),
+                        "success_message": "Em maestro se creo correctamente",
+                    },
                 )
 
-            # Mensaje de éxito y redirection a la misma página
-            messages.success(request, "¡Maestro creado con éxito!")
-            return HttpResponse("Se creo el maestro correctamente")
+            else:
+                # ! ERROR
+                raise ValueError("Error de validación")
 
         # ! Error
         except Exception as e:
-            # Manejo de errores generales
-            messages.error(request, f"Ocurrió un error: {str(e)}")
-            return HttpResponse(f"Ocurrió un error: {str(e)}")
+            return render(
+                request,
+                "school/school-page.html",
+                {
+                    "teachers": getAllTeachers(),
+                    "teacher_form": form,
+                    "teacherCategorys": getAllTeacherCategorys(),
+                    "error_message": str(e),
+                },
+            )
 
     # No es una solicitud POST
     messages.error(request, "Solo se admite solicitud POST")
@@ -166,14 +211,11 @@ def addRemoveSubjectInTeacher(n, type="add"):
 
 
 def schoolContent(request):
-    # Creamos
-    # createTeacherFormHtml(request)
-
     # Creamos relaciones m:m
-    addRemoveSubjectInTeacher(random.randint(5, 10))
+    # addRemoveSubjectInTeacher(random.randint(5, 10))
 
     # Lista de maestros ordenada por key
-    teachers = Teacher.objects.all().order_by("key")
+    teachers = Teacher.objects.all().order_by("name")
 
     # Lista de maestros de id=1 categoría ordenada por key
     # teachers = getRandomTeacherCategory().teachers.all().order_by("key")
@@ -181,8 +223,15 @@ def schoolContent(request):
     # Lista de categorías de maestros
     teacherCategorys = TeacherCategory.objects.all().order_by("name")
 
+    # NOTE - Obtenemos el formulario de maestro
+    teacher_form = TeacherForm()
+
     return render(
         request,
         "school/school-page.html",
-        {"teachers": teachers, "teacherCategorys": teacherCategorys},
+        {
+            "teachers": teachers,
+            "teacher_form": teacher_form,
+            "teacherCategorys": teacherCategorys,
+        },
     )
