@@ -34,7 +34,7 @@ class PaymentsReceived(models.Model):
     date_time_update = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.amount
+        return str(self.amount)
 
 
 # SECTION - Empleado

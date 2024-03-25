@@ -1,30 +1,40 @@
 <div class="row mt-3">
-    <div class="col">
-      {% comment %}Titulo{% endcomment %}
-      <h3 class="h3 text-dark">Registrar empleado</h3>
-  
-      {% comment %}? Existe error{% endcomment %}
-      {% if error_message %}
-        <div class="alert alert-danger">
-          <strong>Error,</strong> {{ error_message }}
-        </div>
-        {% comment %}? Existe exito{% endcomment %}
-      {% elif success_message %}
-        <div class="alert alert-success">
-          <strong>Éxito,</strong> {{ success_message }}
-        </div>
-      {% endif %}
-  
+  <div class="col">
+    {% comment %}Titulo{% endcomment %}
+    <h3 class="h3 text-dark">Registrar empleado</h3>
+
+    {% comment %}? Existe error{% endcomment %}
+    {% if error_message %}
+      <div class="alert alert-danger">
+        <strong>Error,</strong> {{ error_message }}
+      </div>
+      {% comment %}? Existe exito{% endcomment %}
+    {% elif success_message %}
+      <div class="alert alert-success">
+        <strong>Éxito,</strong> {{ success_message }}
+      </div>
+    {% endif %}
+    <div class="container-fluid !direction !spacing bg-primary pt-3 text-white">
       {% comment %}Formulario{% endcomment %}
       <form action="{% url 'create-employee' %}" method="post">
         {% comment %}Token de seguridad{% endcomment %}
         {% csrf_token %}
+
+        {% comment %}Recorremos{% endcomment %}
+        {% comment %} {% for field in form %}
+          <div class="form mb-3">
+            <label for="id_{{ field.name }}">{{ field.label }}</label>
+            {{ field }}
+          </div>
+        {% endfor %} {% endcomment %}
+
         {{ form }}
+
         {% comment %}Boton{% endcomment %}
         <div class="text-center">
-          <button type="submit" class="btn btn-primary">Registrar</button>
+          <button type="submit" class="btn btn-danger mb-3">Registrar</button>
         </div>
       </form>
     </div>
   </div>
-  
+</div>

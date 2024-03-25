@@ -27,6 +27,10 @@
 
     python manage.py makemigrations
 
+## Crear un super usuario
+
+    python manage.py createsuperuser
+
 ### Ejecutar el servidor de Django
 
     python manage.py runserver

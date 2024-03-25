@@ -5,7 +5,7 @@
 }
 
 body nav {
-  background-color: darkgrey;
+  background-color: #4860A6;
   justify-content: center;
   min-height: 10vh;
 }
@@ -29,11 +29,11 @@ body nav ul li a {
 }
 
 body nav ul li a:hover {
-  color: grey;
+  color: #162446;
 }
 
 body nav ul li a:active {
-  color: grey;
+  color: #162446;
 }
 
 body main {
@@ -43,7 +43,7 @@ body main {
   align-items: center;
   background-color: white;
   min-height: 70vh;
-  color: darkgrey;
+  color: #4860A6;
 }
 
 body footer {
@@ -52,7 +52,7 @@ body footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: darkgrey;
+  background-color: #4860A6;
   width: 100%;
   font-size: small;
   min-height: 20vh;
